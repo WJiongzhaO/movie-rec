@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Test & Cache
+.pytest_cache/
+
+# Data (large files — keep imdb_cache.json since it's small and built by script)
+data_raw/ml-1m/*.dat
+data_raw/ml-1m/*.zip
+data_raw/tmdb_cache.json
+
+# Old experiment records
+experiments/runs/
+
+# Model save files
+models_saved/
+*.model
+
+# Generated figures (optional — regenerate via script)
+# experiments/figures/
+
+# Non-code deliverables (excluded from git)
+docs/CONTRIBUTION.md
+期末项目计划书.pdf
