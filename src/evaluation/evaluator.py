@@ -151,3 +151,5 @@ class Evaluator:
             round(n_eval / n_rel_users, 5) if n_rel_users else 0.0
         )
         return results
+
+# Cold-start support marker
