@@ -1,0 +1,23 @@
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: hybrid
+  params:
+    alpha: 0.75
+    cf_params:
+      n_factors: 50
+      n_epochs: 20
+      lr: 0.005
+      reg: 0.02
+      seed: 42
+    content_params:
+      like_threshold: 4.0
+eval:
+  k: 10
+  relevance_threshold: 4.0
+# cf_params 已与 SVD 完整训练复核后的真实最优对齐(n_factors=50/reg=0.02);
+# alpha=0.75 来自对 recall@10 的网格搜索(CF 主导 + 内容补充,兼顾多样性)。
+note: "真实 MovieLens 1M - Hybrid 混合融合(alpha=0.75 网格调优;cf_params 对齐 SVD 最优 n_factors=50/reg=0.02)"

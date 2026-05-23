@@ -1,0 +1,14 @@
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+  cold_user_ratio: 0.1
+model:
+  name: coldstart
+  params:
+    like_threshold: 4.0
+eval:
+  k: 10
+  relevance_threshold: 4.0
+note: "真实 MovieLens 1M - 冷启动(内容画像 + 流行度兜底),含冷用户分层评估"

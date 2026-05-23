@@ -1,0 +1,13 @@
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: itemcf
+  params:
+    topk_neighbors: 120
+eval:
+  k: 10
+  relevance_threshold: 4.0
+note: "基线2: ItemCF 协同过滤 (个性化, topk_neighbors=120)"

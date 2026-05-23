@@ -1,0 +1,34 @@
+# SVD 超参网格搜索 —— 真实 MovieLens 1M
+# 粗筛阶段:宽区间 + 大步长,先定位最优大致落在哪个区间。
+# 为省时,fixed_params 统一把 n_epochs 调小(粗筛只看相对优劣,不追求绝对收敛)。
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: svd
+  params:
+    lr: 0.005
+    seed: 42
+eval:
+  k: 10
+  relevance_threshold: 4.0
+
+# 用哪个指标排名选优(越小越好的 rmse/mae 自动识别)
+optimize: rmse
+
+# 所有组合共享的固定超参(粗筛省时)
+fixed_params:
+  n_epochs: 8
+
+# 粗筛网格:宽区间、大步长。注意不要太宽泛(否则得不到好结果)。
+grid:
+  n_factors: [20, 50, 100]
+  reg: [0.01, 0.02, 0.05]
+
+# 细化阶段:围绕粗筛最优点自动收窄、插值,做更深一步搜索。
+# n_between = 相邻候选间插入的中间点个数。
+refine:
+  enabled: true
+  n_between: 1

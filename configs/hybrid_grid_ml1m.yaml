@@ -1,0 +1,37 @@
+# Hybrid 融合权重网格搜索 —— 真实 MovieLens 1M
+# 调优对象:alpha(融合权重,越大越偏向 CF/SVD,越小越偏向 Content)。
+# 文献参考:评分数据充足时 CF 信号占主导、content 作补充
+# (Research Square 2024, BERT+SVD 混合在偏 CF 端取得最优 NDCG@10),
+# 故扫描整段 [0,1],预期最优落在偏 CF 的一侧。
+# alpha 主要影响排序质量,因此 optimize 用 recall@10(而非 rmse)。
+# cf_params 复用已调优并完整训练复核的 SVD(n_factors=50, reg=0.02),作为固定子模型超参。
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: hybrid
+  params: {}
+eval:
+  k: 10
+  relevance_threshold: 4.0
+
+optimize: recall@10
+
+fixed_params:
+  cf_params:
+    n_factors: 50
+    n_epochs: 20
+    lr: 0.005
+    reg: 0.02
+    seed: 42
+  content_params:
+    like_threshold: 4.0
+
+grid:
+  alpha: [0.0, 0.25, 0.5, 0.75, 1.0]
+
+refine:
+  enabled: true
+  n_between: 1
