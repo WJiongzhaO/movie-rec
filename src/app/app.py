@@ -286,7 +286,7 @@ def _hero(uid,split,L):
 def _reason(uid,genres,split):
     gs=[g.strip() for g in genres.replace("|",",").split(",") if g.strip()]
     pool=[f"你钟爱的「{random.choice(gs)}」类型"] if gs else []
-    pool+=["综合你的观影口味","隐藏好片"]
+    pool+=["综合你的观影口味","协同过滤发现的隐藏好片"]
     return random.choice(pool)
 
 # ═══════════════════════════════════════════════════════════════════
