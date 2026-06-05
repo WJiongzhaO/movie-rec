@@ -398,3 +398,5 @@ if __name__ == "__main__":
     for f in sorted(FIGURES_DIR.glob("*.png")):
         sz = f.stat().st_size
         print(f"  {f.name}  ({sz:,} bytes)")
+
+# multi-K + error-dist + stratified charts
