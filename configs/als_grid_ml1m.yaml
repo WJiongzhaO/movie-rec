@@ -1,0 +1,30 @@
+# ALS 超参网格搜索 —— 真实 MovieLens 1M
+# 调优对象: n_factors × reg
+# ALS 无学习率, 关键超参是隐因子维度与正则强度。
+# 粗筛覆盖宽区间, 与 SVD 网格保持可比维度以公平对比。
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: als
+  params:
+    n_epochs: 10
+    seed: 42
+eval:
+  k: 10
+  relevance_threshold: 4.0
+
+optimize: rmse
+
+fixed_params:
+  n_epochs: 10
+
+grid:
+  n_factors: [20, 50, 100]
+  reg: [0.05, 0.1, 0.5]
+
+refine:
+  enabled: true
+  n_between: 1

@@ -1,0 +1,12 @@
+data:
+  source: movielens
+  params: {}
+split:
+  test_ratio: 0.2
+model:
+  name: popularity
+  params: {}
+eval:
+  k: 10
+  relevance_threshold: 4.0
+note: "基线1: 热门推荐 (非个性化下限参照)"
